@@ -37,7 +37,7 @@ export default function Pipeline() {
 
         <div className="pl2" data-reveal="" data-d="2">
           <div style={{ overflowX: "auto" }}>
-            <div className="pipeline" style={{ minWidth: "400px" }}>
+            <div className="pipeline">
               {stages.map((s, i) => (
                 <React.Fragment key={s.num}>
                   <div className="stage">

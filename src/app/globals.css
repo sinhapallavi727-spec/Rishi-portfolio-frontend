@@ -1141,7 +1141,6 @@ body::before {
 /* ── Section spacing ── */
 @media (max-width: 640px) {
   .section { padding-block: clamp(52px, 10vw, 80px) !important; }
-  .wrap { padding-inline: 20px; }
 }
 
 /* ── Hero ── */
@@ -1166,9 +1165,8 @@ body::before {
 
 /* ── Stats ── */
 @media (max-width: 640px) {
-  /* keep 2-col for stats even at mobile */
-  #about + * .grid.g-3,
-  .section .grid.g-3 { grid-template-columns: repeat(2, 1fr) !important; }
+  /* keep stats (g-4) at 2-col on mobile; work/lab (g-3) collapse to 1fr via base rule */
+  .grid.g-4 { grid-template-columns: repeat(2, 1fr) !important; }
 }
 
 /* ── Pipeline (funnel) — all stages full width on mobile ── */
@@ -1246,6 +1244,110 @@ body::before {
 
 /* ── Glow orbs — smaller on mobile ── */
 @media (max-width: 640px) {
-  .glow-orb { width: 200px !important; height: 200px !important; }
+  .glow-orb { width: 150px !important; height: 150px !important; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   MOBILE v2 — comprehensive fixes (Sr. mobile audit pass)
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Contain ALL horizontal overflow at root ── */
+html { overflow-x: clip; }
+@media (max-width: 768px) {
+  body { overflow-x: hidden; }
+  img, svg, video, canvas { max-width: 100%; }
+}
+
+/* ── Portrait rings — hide on mobile (decorative [EXTRA], cause overflow) ── */
+@media (max-width: 768px) {
+  .portrait-ring, .portrait-ring-2 { display: none !important; }
+  /* Subtle glow on the portrait itself instead */
+  .portrait {
+    box-shadow:
+      0 0 0 1px rgba(201,242,77,0.2),
+      0 0 40px rgba(201,242,77,0.10);
+  }
+}
+
+/* ── Hero — float chips: smaller, fully inside bounds ── */
+@media (max-width: 480px) {
+  .float-chip { font-size: .65rem !important; padding: 5px 9px !important; gap: 5px !important; max-width: calc(50vw - 10px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .float-chip b { font-size: .9rem !important; }
+  .fc-2 { right: 4px !important; }
+}
+
+/* ── Pipeline — mobile-first stage layout ── */
+@media (max-width: 640px) {
+  /* Remove overflowX scroll — pipeline now full width */
+  .pl2 > div[style*="overflowX"] { overflow: visible !important; }
+  .pipeline { width: 100%; }
+  .pipeline .stage { width: 100% !important; flex-direction: column; align-items: flex-start; gap: 6px; padding: 16px 18px; }
+  .stage .s-kpi { text-align: left !important; font-size: .66rem; line-height: 1.4; }
+  .stage .s-name { font-size: 1.25rem !important; }
+  .ai-banner { border-radius: 14px; padding: 14px 16px; }
+  .ai-banner .ai-sub { display: none; }
+  .ai-banner .ai-pills { margin-left: 0; margin-top: 6px; }
+}
+
+/* ── Contact form — stack 2-column to 1-column ── */
+@media (max-width: 768px) {
+  .contact-box { padding: clamp(28px, 6vw, 48px) !important; }
+  .contact-box > div { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .contact-box form, .contact-box .field,
+  .contact-box input, .contact-box textarea { width: 100%; max-width: 100%; }
+  .contact-box h2 { font-size: clamp(1.8rem, 7vw, 2.8rem) !important; }
+}
+
+/* ── Experience — prevent chip overflow ── */
+@media (max-width: 640px) {
+  .xt-chips { flex-wrap: wrap !important; }
+  .xt-chip { min-width: 80px !important; flex: 1 1 calc(50% - 6px); max-width: calc(50% - 6px); }
+  .xt-inner { padding-left: 40px !important; }
+  .xt-line { left: 14px !important; }
+  .xt-dot { left: 7px !important; }
+}
+
+/* ── Work / AI Lab / Writing cards ── */
+@media (max-width: 640px) {
+  .card { border-radius: 14px !important; }
+  /* Single column handled by g-2/g-3 → 1fr, just ensure no extra gap */
+  .grid { gap: clamp(14px, 4vw, 24px) !important; }
+}
+
+/* ── AI Lab prototype CTA card ── */
+@media (max-width: 640px) {
+  .card[style*="justify-content: flex-start"] { min-height: 160px !important; }
+}
+
+/* ── Testimonial cards — full width ── */
+@media (max-width: 640px) {
+  .grid.g-2 > .card { min-width: 0; }
+}
+
+/* ── KineticTrain — reduce font further on tiny screens ── */
+@media (max-width: 480px) {
+  .kt { font-size: clamp(1.8rem, 8vw, 3rem) !important; padding-right: .3em !important; }
+}
+
+/* ── Nav — ensure brand name never wraps ── */
+@media (max-width: 360px) {
+  .brand-name { font-size: .88rem !important; }
+  .brand { gap: 8px !important; }
+}
+
+/* ── Buttons — full width on very small screens ── */
+@media (max-width: 400px) {
+  header#top .btn { width: 100%; justify-content: center; }
+}
+
+/* ── Footer bottom bar — stack on tiny ── */
+@media (max-width: 480px) {
+  footer .wrap > div:last-child { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
+/* ── Section overflow clip (safety net) ── */
+@media (max-width: 768px) {
+  .section { overflow-x: clip; }
+  .wrap { overflow-x: clip; }
 }
 
